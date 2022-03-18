@@ -1,13 +1,14 @@
 module.exports = {
-  presets: ["@babel/preset-env"],
+  presets: ['@babel/preset-env'],
   plugins: [
     [
-      "module-resolver",
+      'module-resolver',
       {
         alias: {
-          "@": "./src",
+          '@': './src',
         },
       },
     ],
+    '@babel/plugin-syntax-dynamic-import',
   ],
 };
