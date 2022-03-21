@@ -1,13 +1,18 @@
 import cors from 'cors';
+import colors from 'colors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import express from 'express';
 import methodOverride from 'method-override';
 
 import routes from '@/routes';
+import connectDB from './config/db.config';
 import logger from '@/config/logger.config';
 import { port, env, morganLogFormat } from '@/config/constant.config';
 import errorMiddleware from '@/middlewares/error.middleware';
+
+// db connection
+connectDB();
 
 const app = express();
 
@@ -22,6 +27,7 @@ app.use(methodOverride());
 app.use(helmet());
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
