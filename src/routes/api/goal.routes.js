@@ -5,10 +5,11 @@ import {
   updateGoal,
   deleteGoal,
 } from '@/controllers/goal.controller';
+import { protect } from '@/middlewares/auth.middleware';
 
 const router = Router();
 
-router.route('/').get(getGoals).post(setGoals);
-router.route('/:id').put(updateGoal).delete(deleteGoal);
+router.route('/').get(protect, getGoals).post(protect, setGoals);
+router.route('/:id').put(protect, updateGoal).delete(protect, deleteGoal);
 
 export default router;
