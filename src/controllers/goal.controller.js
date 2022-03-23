@@ -1,7 +1,6 @@
 import expressAsyncHandler from 'express-async-handler';
 
 import Goal from '@/models/goal.model';
-import User from '@/models/user.model';
 
 // @desc  Get goals
 // @route GET /api/goals
@@ -40,16 +39,14 @@ const updateGoal = expressAsyncHandler(async (req, res) => {
     throw new Error('Goal ont found');
   }
 
-  const user = await User.findById(req.user.id);
-
   // Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error('User not found');
   }
 
   // Make sure the logged user matches the goal user
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');
   }
@@ -72,16 +69,14 @@ const deleteGoal = expressAsyncHandler(async (req, res) => {
     throw new Error('Goal ont found');
   }
 
-  const user = await User.findById(req.user.id);
-
   // Check for user
-  if (!user) {
+  if (!req.user) {
     res.status(401);
     throw new Error('User not found');
   }
 
   // Make sure the logged user matches the goal user
-  if (goal.user.toString() !== user.id) {
+  if (goal.user.toString() !== req.user.id) {
     res.status(401);
     throw new Error('User not authorized');
   }
